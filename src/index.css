@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 侧边栏样式 */
+aside {
+  flex-shrink: 0;
+  transition: width 0.2s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  aside {
+    min-width: 220px !important;
+    width: 220px !important;
+  }
+}
+
+/* Markdown样式 */
+.markdown-content {
+    @apply text-gray-800;
+  }
+  
+  .markdown-content h1 {
+    @apply text-2xl font-bold mb-4 mt-2;
+  }
+  
+  .markdown-content h2 {
+    @apply text-xl font-bold mb-3 mt-5 border-b pb-1 border-gray-200;
+  }
+  
+  .markdown-content h3 {
+    @apply text-lg font-bold mb-2 mt-4;
+  }
+  
+  .markdown-content h4 {
+    @apply text-base font-bold mb-2 mt-3;
+  }
+  
+  .markdown-content p {
+    @apply my-2;
+  }
+  
+  .markdown-content code {
+    @apply font-mono text-sm;
+  }
+  
+  .markdown-content pre {
+    @apply mb-4 overflow-x-auto;
+  }
+  
+  /* 代码块样式 */
+  .markdown-content pre code {
+    @apply block p-0;
+    white-space: pre;
+  }
+  
+  /* 复制按钮悬停效果 */
+  .markdown-content button:hover {
+    @apply bg-blue-600;
+  }
+  
+  /* 减少不必要的空白 */
+  .markdown-content br + br {
+    @apply hidden;
+  } 

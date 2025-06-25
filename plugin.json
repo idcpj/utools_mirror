@@ -1,0 +1,33 @@
+{
+  "name": "mirrors",
+  "pluginName": "开发环境代理镜像助手",
+  "description": "常见开发环境代理一键搜索与粘贴，支持 npm/go/pip/yum/flutter 等。",
+  "main": "index.html",
+  "development": {
+    "main": "http://localhost:5173"
+  },
+  "preload": "preload.js",
+  "logo": "logo.png",
+  "author": "你的名字",
+  "homepage": "",
+  "features": [
+    {
+      "code": "mirrors",
+      "explain": "开发环境代理镜像助手",
+      "cmds": [
+        "代理镜像",
+        {
+          "type": "over",
+          "match": "/.*/i",
+          "label": "搜索代理镜像",
+          "minLength": 1,
+          "maxLength": 50
+        }
+        
+      ]
+    }
+  ],
+  "pluginSetting": {
+    "single": true
+  }
+} 
