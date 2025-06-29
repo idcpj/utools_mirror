@@ -1,51 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import ProxyDetail from './components/ProxyDetail';
+import { Mirror } from './types'; // 假设 types.d.ts 中定义了 Mirror 类型
 
 const App: React.FC = () => {
-  // 从localStorage获取初始选中类型，如果没有则使用默认文件
-  const [selectedFile, setSelectedFile] = useState<string>(
-    localStorage.getItem('selected_file') || 'npm.md'
-  );
+  const [mirrors, setMirrors] = useState<Mirror[]>([]);
+  const [selectedMirror, setSelectedMirror] = useState<Mirror | null>(null);
 
-  // 处理文件选择
-  const handleFileSelect = (filename: string) => {
-    console.log('选择文件:', filename);
-    setSelectedFile(filename);
-    localStorage.setItem('selected_file', filename);
-  };
-
-  // 设置子输入框
   useEffect(() => {
-    if (window.utools && window.utools.setSubInput) {
-      window.utools.setSubInput(({ text }) => {
-        console.log('子输入框内容变化:', text);
-        // 不再进行搜索过滤
-      }, "搜索代理", true);
-    }
-  }, []);
-
-  // 监听 uTools 插件进入事件
-  useEffect(() => {
-    if (window.utools && window.utools.onPluginEnter) {
-      window.utools.onPluginEnter(({ payload }) => {
-        console.log('uTools 插件进入事件触发，payload:', payload);
-        // 不再处理 payload 作为搜索关键词
+    // 从 preload 获取所有数据
+    if (window.getAllData) {
+      window.getAllData().then((allData: Mirror[]) => {
+        setMirrors(allData);
+         // 从 localStorage 获取上次选中的文件，或使用第一个作为默认值
+      const lastSelectedId = localStorage.getItem('selected_mirror_id');
+      const initialMirror = allData.find((m: Mirror) => m.id === lastSelectedId) || allData[0];
+      if (initialMirror) {
+        setSelectedMirror(initialMirror);
+      }
       });
+
+     
     }
   }, []);
+
+  const handleMirrorSelect = (mirror: Mirror) => {
+    setSelectedMirror(mirror);
+    localStorage.setItem('selected_mirror_id', mirror.id);
+  };
 
   return (
     <div className="w-screen h-screen flex bg-gray-100">
-      <Sidebar 
-        onFileSelect={handleFileSelect}
-        selectedFile={selectedFile}
+      <Sidebar
+        mirrors={mirrors}
+        selectedMirror={selectedMirror}
+        onMirrorSelect={handleMirrorSelect}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <ProxyDetail selectedFile={selectedFile} />
+        <ProxyDetail mirror={selectedMirror} />
       </div>
     </div>
   );
 };
 
-export default App; 
+export default App;
