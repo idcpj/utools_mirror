@@ -1,0 +1,19 @@
+{
+  "updatetime": 1719655200000,
+  "files": [
+    { "file": "apt.md" },
+    { "file": "brew.md" },
+    { "file": "cargo.md" },
+    { "file": "composer.md" },
+    { "file": "docker.md" },
+    { "file": "gem.md" },
+    { "file": "go.md" },
+    { "file": "gradle.md" },
+    { "file": "maven.md" },
+    { "file": "npm.md" },
+    { "file": "nuget.md" },
+    { "file": "pip.md" },
+    { "file": "yarn.md" },
+    { "file": "yum.md" }
+  ]
+}
